@@ -98,6 +98,10 @@ namespace LinkedList
                     temp.Prev.Next = temp.Next;
                 }
             }
+            else
+            {
+                throw new NullReferenceException();
+            }
 
         }
     }
