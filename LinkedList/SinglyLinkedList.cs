@@ -8,8 +8,6 @@ namespace LinkedList
 {
     public class SinglyLinkedList<T>
     {
-        internal int version;
-
         public SNode<T> Head { get; set; }
 
         public void InsertFront(T newData)
@@ -30,7 +28,7 @@ namespace LinkedList
             lastSNode.Next = newSNode;
         }
 
-        public SNode<T> GetLastNode()
+        private SNode<T> GetLastNode()
         {
             SNode<T> temp = Head;
             while (temp.Next != null)
@@ -64,24 +62,32 @@ namespace LinkedList
             Head = prevSNode;
         }
 
-        public void DeleteNodebyKey(T key)
+        public void DeleteNodebyKey(T data)
         {
-            SNode<T> prevSNode = null, temp = Head;
-            if (temp != null && temp.Data.Equals(key))
+            if (data != null)
             {
-                Head = temp.Next;
-                return;
+                SNode<T> prevSNode = null, temp = Head;
+                if (temp != null && temp.Data.Equals(data))
+                {
+                    Head = temp.Next;
+                    return;
+                }
+                while (temp != null && !temp.Data.Equals(data))
+                {
+                    prevSNode = temp;
+                    temp = temp.Next;
+                }
+                if (temp == null)
+                {
+                    return;
+                }
+                prevSNode.Next = temp.Next;
             }
-            while (temp != null && !temp.Data.Equals(key))
+            else
             {
-                prevSNode = temp;
-                temp = temp.Next;
+                throw new NullReferenceException();
             }
-            if (temp == null)
-            {
-                return;
-            }
-            prevSNode.Next = temp.Next;
         }
+
     }
 }

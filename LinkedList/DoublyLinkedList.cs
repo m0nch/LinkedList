@@ -34,7 +34,7 @@ namespace LinkedList
             newDNode.Prev = lastDNode;
 
         }
-        public DNode<T> GetLastNode()
+        private DNode<T> GetLastNode()
         {
             DNode<T> temp = Head;
             while (temp.Next != null)
@@ -70,31 +70,35 @@ namespace LinkedList
             }
             Head = temp.Prev;
         }
-        public void DeleteNodebyKey(T key)
+        public void DeleteNodebyKey(T data)
         {
-            DNode<T> temp = Head;
-            if (temp != null && temp.Data.Equals(key))
+            if (data != null)
             {
-                Head = temp.Next;
-                Head.Prev = null;
-                return;
+                DNode<T> temp = Head;
+                if (temp != null && temp.Data.Equals(data))
+                {
+                    Head = temp.Next;
+                    Head.Prev = null;
+                    return;
+                }
+                while (temp != null && !temp.Data.Equals(data))
+                {
+                    temp = temp.Next;
+                }
+                if (temp == null)
+                {
+                    return;
+                }
+                if (temp.Next != null)
+                {
+                    temp.Next.Prev = temp.Prev;
+                }
+                if (temp.Prev != null)
+                {
+                    temp.Prev.Next = temp.Next;
+                }
             }
-            while (temp != null && !temp.Data.Equals(key))
-            {
-                temp = temp.Next;
-            }
-            if (temp == null)
-            {
-                return;
-            }
-            if (temp.Next != null)
-            {
-                temp.Next.Prev = temp.Prev;
-            }
-            if (temp.Prev != null)
-            {
-                temp.Prev.Next = temp.Next;
-            }
+
         }
     }
 }
